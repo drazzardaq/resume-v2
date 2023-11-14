@@ -2,20 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-*,
-::before,
-::after {
-	@apply focus:outline-0 focus:border-0 focus:ring-0 !important;
+*:focus-visible {
+	@apply focus:outline-0 focus-visible:outline-0 focus:border-0 focus:ring-0 animate-pulse !important;
 }
 
 ::-webkit-scrollbar {
-	width: 0.01px;
-	height: 0.01px;
-}
-
-html {
-	scroll-behavior: smooth;
-	scrollbar-width: thin;
+	@apply w-[0.01px] h-[0.01px];
 }
 
 body,
@@ -26,6 +18,41 @@ body,
 }
 
 #menu.expanded {
-  transform: translateX(0%);
-  left: 0px;
+	@apply translate-x-0 left-0;
+}
+
+.fade-leave-active,
+.fade-enter-active {
+	@apply transition-opacity duration-300 opacity-100;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	@apply opacity-0;
+}
+
+.button {
+	@apply relative hover:before:w-[8px] mt-32 z-40 w-[240px] h-14 max-h-14 font-bold tracking-wide hover:tracking-widest transition-all before:top-0 before:left-[54px] after:top-0 after:right-[54px] after:w-[8px];
+}
+
+.button::before,
+.button::after,
+.button-text::before,
+.button-text::after {
+	@apply content-[''] absolute h-[4px] rounded bg-slate-900 transition-all duration-500;
+}
+
+.button::before,
+.button:hover::after,
+.button-text::before,
+.button:hover .button-text::after {
+  width: calc(100% - 56px * 2 - 16px);
+}
+
+.button-text {
+	@apply before:group-hover:w-[8px] flex items-center justify-center w-full h-full font-bold before:bottom-0 before:right-[54px] after:bottom-0 after:left-[54px] after:w-[8px];
+}
+
+.button-line {
+	@apply absolute top-0 w-14 h-full overflow-hidden before:content-[''] before:absolute before:top-0 before:w-[150%] before:h-full before:rounded-full before:border-4 before:border-slate-900 first:left-0 first:before:left-0 even:right-0 even:before:right-0;
 }
